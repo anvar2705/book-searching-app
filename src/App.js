@@ -1,7 +1,7 @@
 import React from "react";
-import './App.css'
+import './App.scss'
 import SearchContainer from "./components/search/SearchContainer";
-import Content from "./components/content/Сontent";
+import Content from "./components/content/СontentContainer";
 
 function App() {
   return (
