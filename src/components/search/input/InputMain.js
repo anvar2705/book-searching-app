@@ -16,12 +16,12 @@ const InputMain = (props) => {
     }
 
     return (
-        <div>
+        <>
             <form onSubmit={handleSubmit(onSubmit)} onChange={onInputChange}>
                 <input {...register('searchValue')}/>
                 <button type='submit'>search</button>
             </form>
-        </div>
+        </>
     )
 }
 

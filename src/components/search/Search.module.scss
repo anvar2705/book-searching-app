@@ -1,0 +1,22 @@
+.search {
+
+  height: 200px;
+
+  background-color: #ccc;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+  &__title {
+    font-size: 30px;
+    font-weight: 700;
+
+    padding-top: 30px;
+  }
+  &__input {
+
+    padding-top: 30px;
+  }
+}
