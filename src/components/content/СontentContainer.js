@@ -5,11 +5,12 @@ import s from './Сontent.module.scss'
 import {getSearchResultThunk, setFetching, setStartIndex} from "../../redux/content-reducer";
 
 const Content = (props) => {
+    let bookItems
     let value = props.search.value
     let category = props.search.category
     let sortingBy = props.search.sortingBy
 
-    let bookItems = props.items.map(item => (
+    const mapItems = (item) => (
         <div key={item.etag}>
             <BookItem image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.smallThumbnail : ''}
                       category={(item.volumeInfo.categories) ? item.volumeInfo.categories[0] : ''}
@@ -17,7 +18,17 @@ const Content = (props) => {
                       authors={item.volumeInfo.authors ? item.volumeInfo.authors.join(', ') : ''}
             />
         </div>
-    ))
+    )
+
+    if (category === 'all') {
+        bookItems = props.items.map(mapItems)
+    } else {
+        bookItems = props.items.filter(item => {
+            if (item.volumeInfo.categories && item.volumeInfo.categories.join().toLowerCase().includes(category))
+                return true
+        }).map(mapItems)
+    }
+
 
     useEffect(() => {
         document.addEventListener('scroll', loadMore)
@@ -40,7 +51,6 @@ const Content = (props) => {
             props.setStartIndex(props.startIndex + props.paginationStep)
         }
     }, [props.fetching])
-
 
 
     return (
