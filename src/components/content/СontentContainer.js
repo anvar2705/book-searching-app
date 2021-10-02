@@ -5,6 +5,9 @@ import s from './Сontent.module.scss'
 import {getSearchResultThunk, setFetching, setStartIndex} from "../../redux/content-reducer";
 
 const Content = (props) => {
+    let value = props.search.value
+    let category = props.search.category
+    let sortingBy = props.search.sortingBy
 
     let bookItems = props.items.map(item => (
         <div key={item.etag}>
@@ -23,21 +26,22 @@ const Content = (props) => {
         }
     }, [])
 
-    useEffect(() => {
-        if (props.fetching && !props.stopFetching) {
-            props.getSearchResultThunk(props.searchValue, props.paginationStep, props.startIndex)
-            props.setStartIndex(props.startIndex + props.paginationStep)
-        }
-    }, [props.fetching])
-
     const loadMore = () => {
         let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom
 
         if ((windowRelativeBottom < document.documentElement.clientHeight + 100)) {
             props.setFetching(true)
         }
-
     }
+
+    useEffect(() => {
+        if (props.fetching && !props.stopFetching) {
+            props.getSearchResultThunk(value, props.paginationStep, props.startIndex, sortingBy)
+            props.setStartIndex(props.startIndex + props.paginationStep)
+        }
+    }, [props.fetching])
+
+
 
     return (
         <div className={s.content}>
@@ -57,7 +61,7 @@ let mapStateToProps = (state) => {
     return {
         items: state.contentPage.items,
         totalItems: state.contentPage.totalItems,
-        searchValue: state.contentPage.searchValue,
+        search: state.contentPage.search,
         startIndex: state.contentPage.startIndex,
         paginationStep: state.contentPage.paginationStep,
         fetching: state.contentPage.fetching,

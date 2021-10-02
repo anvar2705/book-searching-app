@@ -18,7 +18,7 @@ const Search = (props) => {
                 Book Search App
             </div>
             <div className={s.search__input}>
-                <InputMain searchValue={props.searchValue}
+                <InputMain search={props.search}
                            setSearchValue={props.setSearchValue}
                            getSearchResultThunk={props.getSearchResultThunk}
                            startIndex={props.startIndex}
@@ -33,7 +33,7 @@ const Search = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        searchValue: state.contentPage.searchValue,
+        search: state.contentPage.search,
         startIndex: state.contentPage.startIndex,
         paginationStep: state.contentPage.paginationStep
     }

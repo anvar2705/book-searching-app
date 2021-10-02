@@ -1,4 +1,5 @@
 import {searchAPI} from '../api/API'
+import {act} from "@testing-library/react";
 
 
 //Constants
@@ -12,11 +13,14 @@ const SET_PRELOADER = 'book-searching/content-reducer/SET_PRELOADER'
 const SET_STOP_FETCHING = 'book-searching/content-reducer/SET_STOP_FETCHING'
 
 
-
 //Initial state
 
 let initialState = {
-    searchValue: '',
+    search: {
+        value: '',
+        category: '',
+        sortingBy: ''
+    },
     totalItems: null,
     preloader: false,
     fetching: false,
@@ -29,7 +33,7 @@ let initialState = {
 //Action Creators
 export const setSearchResult = (items) => ({type: SET_SEARCH_RESULT, items})
 export const clearSearchResult = () => ({type: CLEAR_SEARCH_RESULT})
-export const setSearchValue = (value) => ({type: SET_SEARCH_VALUE, value})
+export const setSearchValue = (value, category, sortingBy) => ({type: SET_SEARCH_VALUE, value, category, sortingBy})
 export const setSearchCount = (count) => ({type: SET_SEARCH_COUNT, count})
 export const setStartIndex = (startIndex) => ({type: SET_START_INDEX, startIndex})
 export const setFetching = (status) => ({type: SET_FETCHING, status})
@@ -38,9 +42,9 @@ export const setStopFetching = (status) => ({type: SET_STOP_FETCHING, status})
 
 
 //Thunk Creators
-export const getSearchResultThunk = (search, paginationStep, startIndex) => async (dispatch) => {
+export const getSearchResultThunk = (search, paginationStep, startIndex, sortingBy) => async (dispatch) => {
     dispatch(setPreloader(true))
-    const response = await searchAPI.getBooks(search, paginationStep, startIndex)
+    const response = await searchAPI.getBooks(search, paginationStep, startIndex, sortingBy)
     if (response) {
         dispatch(setSearchResult(response.items))
         dispatch(setSearchCount(response.totalItems))
@@ -59,7 +63,13 @@ const contentReducer = (state = initialState, action) => {
         case SET_SEARCH_VALUE:
             return {
                 ...state,
-                searchValue: action.value
+                search: {
+                    ...state.search,
+                    value: action.value,
+                    category: action.category,
+                    sortingBy: action.sortingBy
+
+                }
             }
         case SET_SEARCH_RESULT:
             return {
