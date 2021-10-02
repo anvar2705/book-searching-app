@@ -24,7 +24,7 @@ const Content = (props) => {
     }, [])
 
     useEffect(() => {
-        if (props.fetching) {
+        if (props.fetching && !props.stopFetching) {
             props.getSearchResultThunk(props.searchValue, props.paginationStep, props.startIndex)
             props.setStartIndex(props.startIndex + props.paginationStep)
         }
@@ -61,7 +61,8 @@ let mapStateToProps = (state) => {
         startIndex: state.contentPage.startIndex,
         paginationStep: state.contentPage.paginationStep,
         fetching: state.contentPage.fetching,
-        preloader: state.contentPage.preloader
+        preloader: state.contentPage.preloader,
+        stopFetching: state.contentPage.stopFetching
     }
 }
 let mapDispatchToProps = {

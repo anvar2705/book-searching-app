@@ -10,6 +10,7 @@ const InputMain = (props) => {
 
     const onSubmit = () => {
         if (props.searchValue) {
+            props.clearSearchResult()
             props.getSearchResultThunk(props.searchValue,props.paginationStep, props.startIndex)
             props.setStartIndex(props.paginationStep)
         } else
