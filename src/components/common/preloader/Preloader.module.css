@@ -1,11 +1,9 @@
 
 .parent {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 700px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+
 }
 .preloader {
 

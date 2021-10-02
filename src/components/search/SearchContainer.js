@@ -1,7 +1,7 @@
 import React from "react";
 import InputMain from "./input/InputMain";
 import {connect} from "react-redux";
-import {getSearchResultThunk, setSearchValue} from "../../redux/content-reducer";
+import {getSearchResultThunk, setSearchValue, setStartIndex} from "../../redux/content-reducer";
 import s from "./Search.module.scss";
 
 
@@ -15,6 +15,9 @@ const Search = (props) => {
                 <InputMain searchValue={props.searchValue}
                            setSearchValue={props.setSearchValue}
                            getSearchResultThunk={props.getSearchResultThunk}
+                           startIndex={props.startIndex}
+                           paginationStep={props.paginationStep}
+                           setStartIndex={props.setStartIndex}
                 />
             </div>
         </div>
@@ -23,13 +26,16 @@ const Search = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        searchValue: state.contentPage.searchValue
+        searchValue: state.contentPage.searchValue,
+        startIndex: state.contentPage.startIndex,
+        paginationStep: state.contentPage.paginationStep
     }
 }
 
 let mapDispatchToProps = {
     setSearchValue,
-    getSearchResultThunk
+    getSearchResultThunk,
+    setStartIndex
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search)

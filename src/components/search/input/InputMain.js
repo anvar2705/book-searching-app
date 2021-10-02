@@ -8,10 +8,11 @@ const InputMain = (props) => {
         props.setSearchValue(watch('searchValue'))
     }
 
-    const onSubmit = (data) => {
-        if (props.searchValue)
-            props.getSearchResultThunk(props.searchValue)
-        else
+    const onSubmit = () => {
+        if (props.searchValue) {
+            props.getSearchResultThunk(props.searchValue,props.paginationStep, props.startIndex)
+            props.setStartIndex(props.paginationStep)
+        } else
             alert('Please, fill the search field')
     }
 

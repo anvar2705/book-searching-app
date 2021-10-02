@@ -9,8 +9,8 @@ const instance = axios.create({
 })
 
 export const searchAPI = {
-    getBooks(search) {
-        return instance.get(`?q=${search}&key=${API_KEY}&maxResults=${30}`)
+    getBooks(search, paginationStep, startIndex) {
+        return instance.get(`?q=${search}&key=${API_KEY}&maxResults=${paginationStep}&startIndex=${startIndex}`)
             .then(response => response.data)
     }
 }

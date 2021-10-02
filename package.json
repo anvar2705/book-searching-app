@@ -2,7 +2,7 @@
   "name": "book-searching-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://anvar2705.github.io/book-search-app",
+  "homepage": "https://anvar2705.github.io/book-search-app/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

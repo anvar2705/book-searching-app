@@ -14,7 +14,17 @@ $screen-m-max: 1023px;
 $screen-l-max: 1279px;
 $screen-xl-max: 1599px;
 
-.App {
+.app {
     font-family: 'Lato', sans-serif;
+
+    &__preloader {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+
+        pointer-events: none;
+
+        z-index: 10;
+    }
 }
 

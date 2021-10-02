@@ -1,13 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {BookItem} from "./bookItem/BookItem";
 import {connect} from "react-redux";
 import s from './Сontent.module.scss'
-import Preloader from "../common/preloader/Preloader";
+import {getSearchResultThunk, setFetching, setStartIndex} from "../../redux/content-reducer";
 
 const Content = (props) => {
 
     let bookItems = props.items.map(item => (
-        <div key={item.id}>
+        <div key={item.etag}>
             <BookItem image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.smallThumbnail : ''}
                       category={(item.volumeInfo.categories) ? item.volumeInfo.categories[0] : ''}
                       title={item.volumeInfo.title ? item.volumeInfo.title : ''}
@@ -16,23 +16,35 @@ const Content = (props) => {
         </div>
     ))
 
+    useEffect(() => {
+        document.addEventListener('scroll', loadMore)
+        return function () {
+            document.removeEventListener('scroll', loadMore)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (props.fetching) {
+            props.getSearchResultThunk(props.searchValue, props.paginationStep, props.startIndex)
+            props.setStartIndex(props.startIndex + props.paginationStep)
+        }
+    }, [props.fetching])
+
     const loadMore = () => {
         let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom
 
-        if (windowRelativeBottom < document.documentElement.clientHeight + 100)
-            console.log('loadMore')
-    }
+        if ((windowRelativeBottom < document.documentElement.clientHeight + 100)) {
+            props.setFetching(true)
+        }
 
-    loadMore()
+    }
 
     return (
         <div className={s.content}>
-            {props.loading ? <Preloader/> : null}
-            {props.totalItems ?
+            {props.items[0] ?
                 <div className={s.content__count}>
                     Found {props.totalItems} results
-                </div> :
-                null}
+                </div> : null}
             <div className={s.content__grid}>
                 {bookItems}
             </div>
@@ -40,13 +52,23 @@ const Content = (props) => {
     )
 }
 
+
 let mapStateToProps = (state) => {
     return {
         items: state.contentPage.items,
         totalItems: state.contentPage.totalItems,
-        loading: state.contentPage.loading
+        searchValue: state.contentPage.searchValue,
+        startIndex: state.contentPage.startIndex,
+        paginationStep: state.contentPage.paginationStep,
+        fetching: state.contentPage.fetching,
+        preloader: state.contentPage.preloader
     }
 }
+let mapDispatchToProps = {
+    getSearchResultThunk,
+    setStartIndex,
+    setFetching
+}
 
-export default connect(mapStateToProps, null)(Content)
+export default connect(mapStateToProps, mapDispatchToProps)(Content)
 
