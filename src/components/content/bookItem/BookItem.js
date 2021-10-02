@@ -8,7 +8,7 @@ export const BookItem = (props) => {
             <div className={s.bookItem__wrapper}>
                 <div className={s.bookItem__info}>
                     <div className={s.bookItem__image}>
-                        <img src={props.image} alt='book-image'/>
+                        <img src={props.image}/>
                     </div>
                     <div className={s.bookItem__authors}>
                         {props.authors}

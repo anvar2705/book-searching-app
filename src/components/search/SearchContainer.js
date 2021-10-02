@@ -15,7 +15,6 @@ const Search = (props) => {
                 <InputMain searchValue={props.searchValue}
                            setSearchValue={props.setSearchValue}
                            getSearchResultThunk={props.getSearchResultThunk}
-
                 />
             </div>
         </div>
