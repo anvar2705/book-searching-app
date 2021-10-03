@@ -6,7 +6,10 @@ import {ButtonCustom} from "../../common/buttonCustom/ButtonCustom";
 
 const InputMain = (props) => {
     let value = props.search.value
+    let category = props.search.category
     let sortingBy = props.search.sortingBy
+    let paginationStep = props.paginationStep
+    let stopFetching = props.stopFetching
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm()
 
@@ -17,8 +20,16 @@ const InputMain = (props) => {
     const onSubmit = () => {
         if (value) {
             props.clearSearchResult()
-            props.getSearchResultThunk(value, props.paginationStep,0, sortingBy)
-            props.setStartIndex(props.paginationStep)
+            if (category === 'all') {
+                props.getSearchResultThunk(value, paginationStep, 0, sortingBy)
+                props.setStartIndex(paginationStep)
+            } else {
+                if (!stopFetching) {
+                    props.getSearchResultFilteredThunk(value, paginationStep, 0, sortingBy, category)
+                }
+            }
+
+
         } else
             alert('Please, fill the search field')
     }
@@ -26,9 +37,6 @@ const InputMain = (props) => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} onChange={onInputChange} className={s.form}>
-{/*
-                <input {...register('value')} className={s.form__input}/>
-*/}
                 <div className={s.form__input}>
                     <InputCustom {...register('value')}>Search books</InputCustom>
                 </div>
@@ -46,7 +54,7 @@ const InputMain = (props) => {
                     <option value="poetry">poetry</option>
                 </select>
                 <select {...register('sortingBy')} defaultValue='relevance' className={s.form__sorting}>
-                    <option value="relevance">relevance </option>
+                    <option value="relevance">relevance</option>
                     <option value="newest">newest</option>
                 </select>
             </form>

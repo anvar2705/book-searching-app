@@ -2,15 +2,21 @@ import React, {useEffect} from "react";
 import {BookItem} from "./bookItem/BookItem";
 import {connect} from "react-redux";
 import s from './Сontent.module.scss'
-import {getSearchResultThunk, setFetching, setStartIndex} from "../../redux/content-reducer";
+import {
+    getSearchResultFilteredThunk,
+    getSearchResultThunk,
+    setFetching,
+    setStartIndex
+} from "../../redux/content-reducer";
 
 const Content = (props) => {
-    let bookItems
     let value = props.search.value
     let category = props.search.category
     let sortingBy = props.search.sortingBy
 
-    const mapItems = (item) => (
+
+
+    let bookItems = props.items.map((item) => (
         <div key={item.etag}>
             <BookItem image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.smallThumbnail : ''}
                       category={(item.volumeInfo.categories) ? item.volumeInfo.categories[0] : ''}
@@ -18,17 +24,7 @@ const Content = (props) => {
                       authors={item.volumeInfo.authors ? item.volumeInfo.authors.join(', ') : ''}
             />
         </div>
-    )
-
-    if (category === 'all') {
-        bookItems = props.items.map(mapItems)
-    } else {
-        bookItems = props.items.filter(item => {
-            if (item.volumeInfo.categories && item.volumeInfo.categories.join().toLowerCase().includes(category))
-                return true
-        }).map(mapItems)
-    }
-
+    ))
 
     useEffect(() => {
         document.addEventListener('scroll', loadMore)
@@ -55,7 +51,7 @@ const Content = (props) => {
 
     return (
         <div className={s.content}>
-            {props.items[0] ?
+            {props.foundResults ?
                 <div className={s.content__count}>
                     Found {props.totalItems} results
                 </div> : null}
@@ -76,11 +72,13 @@ let mapStateToProps = (state) => {
         paginationStep: state.contentPage.paginationStep,
         fetching: state.contentPage.fetching,
         preloader: state.contentPage.preloader,
-        stopFetching: state.contentPage.stopFetching
+        stopFetching: state.contentPage.stopFetching,
+        foundResults: state.contentPage.foundResults
     }
 }
 let mapDispatchToProps = {
     getSearchResultThunk,
+    getSearchResultFilteredThunk,
     setStartIndex,
     setFetching
 }
