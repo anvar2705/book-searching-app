@@ -3,7 +3,6 @@ import {BookItem} from "./bookItem/BookItem";
 import {connect} from "react-redux";
 import s from './Сontent.module.scss'
 import {
-    getSearchResultFilteredThunk,
     getSearchResultThunk,
     setFetching,
     setStartIndex
@@ -43,7 +42,7 @@ const Content = (props) => {
 
     useEffect(() => {
         if (props.fetching && !props.stopFetching) {
-            props.getSearchResultThunk(value, props.paginationStep, props.startIndex, sortingBy)
+            props.getSearchResultThunk(value, props.paginationStep, props.startIndex, sortingBy, category)
             props.setStartIndex(props.startIndex + props.paginationStep)
         }
     }, [props.fetching])
@@ -51,7 +50,7 @@ const Content = (props) => {
 
     return (
         <div className={s.content}>
-            {props.foundResults ?
+            {props.searchFinished ?
                 <div className={s.content__count}>
                     Found {props.totalItems} results
                 </div> : null}
@@ -73,12 +72,11 @@ let mapStateToProps = (state) => {
         fetching: state.contentPage.fetching,
         preloader: state.contentPage.preloader,
         stopFetching: state.contentPage.stopFetching,
-        foundResults: state.contentPage.foundResults
+        searchFinished: state.contentPage.searchFinished
     }
 }
 let mapDispatchToProps = {
     getSearchResultThunk,
-    getSearchResultFilteredThunk,
     setStartIndex,
     setFetching
 }

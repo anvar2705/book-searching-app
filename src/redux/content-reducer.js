@@ -1,5 +1,4 @@
 import {searchAPI} from '../api/API'
-import {act} from "@testing-library/react";
 
 
 //Constants
@@ -11,7 +10,7 @@ const SET_START_INDEX = 'book-searching/content-reducer/SET_START_INDEX'
 const SET_FETCHING = 'book-searching/content-reducer/SET_FETCHING'
 const SET_PRELOADER = 'book-searching/content-reducer/SET_PRELOADER'
 const SET_STOP_FETCHING = 'book-searching/content-reducer/SET_STOP_FETCHING'
-const SET_FOUND_RESULTS = 'book-searching/content-reducer/SET_FOUND_RESULTS'
+const SET_SEARCH_FINISHED = 'book-searching/content-reducer/SET_SEARCH_FINISHED'
 
 
 //Initial state
@@ -26,11 +25,10 @@ let initialState = {
     preloader: false,
     fetching: false,
     stopFetching: false,
-    foundResults: false,
     startIndex: 0,
     paginationStep: 30,
-    items: []
-
+    items: [],
+    searchFinished: false
 }
 
 //Action Creators
@@ -41,14 +39,14 @@ export const setSearchCount = (count) => ({type: SET_SEARCH_COUNT, count})
 export const setStartIndex = (startIndex) => ({type: SET_START_INDEX, startIndex})
 export const setFetching = (status) => ({type: SET_FETCHING, status})             //Триггер нового запроса
 export const setPreloader = (status) => ({type: SET_PRELOADER, status})          //Триггер отображение прелоадера
-export const setStopFetching = (status) => ({type: SET_STOP_FETCHING, status})   //Триггер окончания поиска
-export const setFoundResults = (status) => ({type: SET_FOUND_RESULTS, status})   //Триггер отображения результата
+export const setStopFetching = (status) => ({type: SET_STOP_FETCHING, status})   //Триггер окончания подгрузки данных при достижении totalItems
+export const setSearchFinished = (status) => ({type: SET_SEARCH_FINISHED, status})          //Триггер отображение прелоадера
 
 
 //Thunk Creators
-export const getSearchResultThunk = (search, paginationStep, startIndex, sortingBy) => async (dispatch) => {
+export const getSearchResultThunk = (search, paginationStep, startIndex, sortingBy, category) => async (dispatch) => {
     dispatch(setPreloader(true))
-    const response = await searchAPI.getBooks(search, paginationStep, startIndex, sortingBy)
+    const response = await searchAPI.getBooks(search, paginationStep, startIndex, sortingBy, category)
     if (response.data) {
         dispatch(setSearchResult(response.data.items))
         dispatch(setSearchCount(response.data.totalItems))
@@ -58,27 +56,7 @@ export const getSearchResultThunk = (search, paginationStep, startIndex, sorting
     }
     dispatch(setPreloader(false))
     dispatch(setFetching(false))
-}
-
-export const getSearchResultFilteredThunk = (search, paginationStep, startIndex, sortingBy, category) => async (dispatch) => {
-    dispatch(setPreloader(true))
-    let response
-    let itemsLocal = []
-    let startIndexLocal = 0
-    do {
-        response = await searchAPI.getBooks(search, paginationStep, startIndexLocal, sortingBy)
-        if (response.data) {
-            itemsLocal = itemsLocal.concat(response.data.items.filter(item => {
-                if (item.volumeInfo.categories && item.volumeInfo.categories.join().toLowerCase().includes(category))
-                    return true
-            }))
-            startIndexLocal += paginationStep
-        }
-    } while (startIndexLocal < response.data.totalItems)
-    dispatch(setSearchResult(itemsLocal))
-    dispatch(setFoundResults(true))
-    dispatch(setSearchCount(itemsLocal.length))
-    dispatch(setPreloader(false))
+    dispatch(setSearchFinished(true))
 }
 
 
@@ -93,7 +71,6 @@ const contentReducer = (state = initialState, action) => {
                     value: action.value,
                     category: action.category,
                     sortingBy: action.sortingBy
-
                 }
             }
         case SET_SEARCH_RESULT:
@@ -106,7 +83,7 @@ const contentReducer = (state = initialState, action) => {
                 ...state,
                 items: [],
                 startIndex: 0,
-                foundResults: false
+                searchFinished: false
             }
         case SET_SEARCH_COUNT:
             return {
@@ -133,10 +110,10 @@ const contentReducer = (state = initialState, action) => {
                 ...state,
                 preloader: action.status
             }
-        case SET_FOUND_RESULTS:
+        case SET_SEARCH_FINISHED:
             return {
                 ...state,
-                foundResults: action.status
+                searchFinished: action.status
             }
         default:
             return state

@@ -9,7 +9,6 @@ const InputMain = (props) => {
     let category = props.search.category
     let sortingBy = props.search.sortingBy
     let paginationStep = props.paginationStep
-    let stopFetching = props.stopFetching
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm()
 
@@ -20,16 +19,8 @@ const InputMain = (props) => {
     const onSubmit = () => {
         if (value) {
             props.clearSearchResult()
-            if (category === 'all') {
-                props.getSearchResultThunk(value, paginationStep, 0, sortingBy)
-                props.setStartIndex(paginationStep)
-            } else {
-                if (!stopFetching) {
-                    props.getSearchResultFilteredThunk(value, paginationStep, 0, sortingBy, category)
-                }
-            }
-
-
+            props.getSearchResultThunk(value, paginationStep, 0, sortingBy, category)
+            props.setStartIndex(paginationStep)
         } else
             alert('Please, fill the search field')
     }
