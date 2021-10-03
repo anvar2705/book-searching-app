@@ -2,10 +2,12 @@ import React from 'react'
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
 import contentReducer from './content-reducer'
 import thunkMiddleWare from 'redux-thunk'
+import bookPageReducer from "./bookPage-reducer";
 
 
 let reducers = combineReducers({
-    contentPage: contentReducer
+    contentPage: contentReducer,
+    bookPage: bookPageReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

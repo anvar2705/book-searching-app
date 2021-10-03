@@ -3,24 +3,52 @@ import s from './App.module.scss'
 import SearchContainer from "./components/search/SearchContainer";
 import Content from "./components/content/СontentContainer";
 import Preloader from "./components/common/preloader/Preloader";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
+import {HashRouter, Route, Switch} from "react-router-dom";
+import store from "./redux/redux-store";
+import BookPage from "./components/bookPage/BookPage";
+
 
 const App = (props) => {
     return (
         <div className={s.app}>
-            {props.preloader ?
+            {(props.preloaderContent || props.preloaderBookPage) ?
                 <div className={s.app__preloader}>
                     <Preloader/>
                 </div> : null}
             <SearchContainer/>
-            <Content/>
+            <div className={s.app__content}>
+                <Switch>
+                    <Route exact path='/'
+                           render={() => (<Content/>)}
+                    />
+                    <Route path='/book:id?'
+                           render={() => (<BookPage/>)}
+                    />
+                </Switch>
+
+            </div>
+
         </div>
     )
 }
 
 let mapStateToProps = (state) => {
     return {
-        preloader: state.contentPage.preloader
+        preloaderContent: state.contentPage.preloader,
+        preloaderBookPage: state.bookPage.preloader
     }
 }
-export default connect(mapStateToProps, null)(App);
+const AppContainer = connect(mapStateToProps, null)(App);
+
+const AppMain = () => {
+    return (
+        <HashRouter>
+            <Provider store={store}>
+                <AppContainer/>
+            </Provider>
+        </HashRouter>
+    )
+}
+
+export default AppMain

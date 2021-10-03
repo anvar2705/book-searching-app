@@ -15,5 +15,8 @@ export const searchAPI = {
             return instance.get(`?q=${value}&key=${API_KEY}&maxResults=${paginationStep}&startIndex=${startIndex}&orderBy=${sortingBy}`)
         else
             return instance.get(`?q=${value}+subject:${category}&key=${API_KEY}&maxResults=${paginationStep}&startIndex=${startIndex}&orderBy=${sortingBy}`)
+    },
+    getSingleBook(id) {
+        return instance.get(`/${id}`)
     }
 }
