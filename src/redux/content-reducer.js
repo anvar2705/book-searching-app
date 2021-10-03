@@ -1,5 +1,4 @@
 import {searchAPI} from '../api/API'
-import {act} from "@testing-library/react";
 
 
 //Constants
@@ -12,7 +11,7 @@ const SET_FETCHING = 'book-searching/content-reducer/SET_FETCHING'
 const SET_PRELOADER = 'book-searching/content-reducer/SET_PRELOADER'
 const SET_STOP_FETCHING = 'book-searching/content-reducer/SET_STOP_FETCHING'
 
-
+let startIndex = 0
 //Initial state
 
 let initialState = {
@@ -26,35 +25,49 @@ let initialState = {
     fetching: false,
     stopFetching: false,
     startIndex: 0,
-    paginationStep: 30,
+    paginationStep: 3,
     items: []
 }
 
 //Action Creators
 export const setSearchResult = (items) => ({type: SET_SEARCH_RESULT, items})
+export const setSearchResultFiltered = (items, category) => ({type: SET_SEARCH_RESULT, items, category})
 export const clearSearchResult = () => ({type: CLEAR_SEARCH_RESULT})
 export const setSearchValue = (value, category, sortingBy) => ({type: SET_SEARCH_VALUE, value, category, sortingBy})
 export const setSearchCount = (count) => ({type: SET_SEARCH_COUNT, count})
 export const setStartIndex = (startIndex) => ({type: SET_START_INDEX, startIndex})
-export const setFetching = (status) => ({type: SET_FETCHING, status})
-export const setPreloader = (status) => ({type: SET_PRELOADER, status})
-export const setStopFetching = (status) => ({type: SET_STOP_FETCHING, status})
+export const setFetching = (status) => ({type: SET_FETCHING, status})             //Триггер нового запроса
+export const setPreloader = (status) => ({type: SET_PRELOADER, status})          //Триггер отображение прелоадера
+export const setStopFetching = (status) => ({type: SET_STOP_FETCHING, status})   //Триггер окончания поиска
 
 
 //Thunk Creators
 export const getSearchResultThunk = (search, paginationStep, startIndex, sortingBy) => async (dispatch) => {
     dispatch(setPreloader(true))
     const response = await searchAPI.getBooks(search, paginationStep, startIndex, sortingBy)
-    if (response) {
-        dispatch(setSearchResult(response.items))
-        dispatch(setSearchCount(response.totalItems))
+    if (response.data) {
+        dispatch(setSearchResult(response.data.items))
+        dispatch(setSearchCount(response.data.totalItems))
 
-        if (response.items.length < paginationStep)
+        if (response.data.items.length < paginationStep)
             dispatch(setStopFetching(true))
     }
     dispatch(setPreloader(false))
     dispatch(setFetching(false))
 }
+
+/*export const getSearchResultFilteredThunk = (search, paginationStep, startIndex, sortingBy, stopFetching) => async (dispatch) => {
+    if (!stopFetching) {
+        const response = await searchAPI.getBooks(search, paginationStep, startIndex, sortingBy)
+        if (response.data) {
+            dispatch(setSearchResult(response.data.items))
+            dispatch(setSearchCount(response.data.totalItems))
+
+            if (response.data.items.length < paginationStep)
+                dispatch(setStopFetching(true))
+        }
+    }
+}*/
 
 
 //Reducer

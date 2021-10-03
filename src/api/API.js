@@ -11,6 +11,5 @@ const instance = axios.create({
 export const searchAPI = {
     getBooks(value, paginationStep, startIndex, sortingBy) {
         return instance.get(`?q=intitle:${value}&key=${API_KEY}&maxResults=${paginationStep}&startIndex=${startIndex}&orderBy=${sortingBy}`)
-            .then(response => response.data)
     }
 }

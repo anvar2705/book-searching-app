@@ -1,9 +1,11 @@
 import React from "react";
 import {useForm} from "react-hook-form";
+import s from './InputMain.module.scss'
+import {InputCustom} from "../../common/inputCustom/InputCustom";
+import {ButtonCustom} from "../../common/buttonCustom/ButtonCustom";
 
 const InputMain = (props) => {
     let value = props.search.value
-    let category = props.search.category
     let sortingBy = props.search.sortingBy
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm()
@@ -15,7 +17,7 @@ const InputMain = (props) => {
     const onSubmit = () => {
         if (value) {
             props.clearSearchResult()
-            props.getSearchResultThunk(value, props.paginationStep, 0, sortingBy)
+            props.getSearchResultThunk(value, props.paginationStep,0, sortingBy)
             props.setStartIndex(props.paginationStep)
         } else
             alert('Please, fill the search field')
@@ -23,10 +25,18 @@ const InputMain = (props) => {
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)} onChange={onInputChange}>
-                <input {...register('value')}/>
-                <button type='submit'>search</button>
-                <select {...register('category')} defaultValue='all'>
+            <form onSubmit={handleSubmit(onSubmit)} onChange={onInputChange} className={s.form}>
+{/*
+                <input {...register('value')} className={s.form__input}/>
+*/}
+                <div className={s.form__input}>
+                    <InputCustom {...register('value')}>Search books</InputCustom>
+                </div>
+                <div className={s.form__btn}>
+                    <ButtonCustom>search</ButtonCustom>
+
+                </div>
+                <select {...register('category')} defaultValue='all' className={s.form__category}>
                     <option value="all">all</option>
                     <option value="art">art</option>
                     <option value="biography">biography</option>
@@ -35,7 +45,7 @@ const InputMain = (props) => {
                     <option value="medical">medical</option>
                     <option value="poetry">poetry</option>
                 </select>
-                <select {...register('sortingBy')} defaultValue='relevance'>
+                <select {...register('sortingBy')} defaultValue='relevance' className={s.form__sorting}>
                     <option value="relevance">relevance </option>
                     <option value="newest">newest</option>
                 </select>
