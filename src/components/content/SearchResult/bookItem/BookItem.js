@@ -6,7 +6,7 @@ export const BookItem = (props) => {
 
     return (
         <>
-            <NavLink to={'/book' + props.id}>
+            <NavLink to={'/book' + props.id} className={s.link}>
                 <div className={s.bookItem}>
                     <div className={s.bookItem__wrapper}>
                         <div className={s.bookItem__info}>

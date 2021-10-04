@@ -1,27 +1,74 @@
-.form {
-  display: grid;
-  grid-template-areas: "input btn" "categ sort";
-  grid-template-rows: repeat(2, 50px);
+@import './public/index.scss';
 
-  img {
-    width: 50px;
-    height: 50px;
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 600px;
+  @media (max-width: $screen-s-max) {
+    width: 400px;
+  }
+  @media (max-width: $screen-xs-max) {
+    width: 300px;
+  }
+
+  &__field {
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    width: 100%;
+
+    padding-bottom: 10px;
   }
 
   &__input {
-    grid-area: input;
+    width: 72%;
+    padding-right: 1%;
   }
   &__btn {
-    grid-area: btn;
+    width: 27%;
+  }
 
-    img {
-      width: 50px;
+  &__selects {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 16px;
+
+    @media (max-width: $screen-xs-max) {
+      flex-direction: column;
     }
   }
-  &__category {
-    grid-area: categ;
+  &__selectItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-bottom: 10px;
+
+    @media (max-width: $screen-xs-max) {
+      width: 100%;
+    }
   }
-  &__sorting {
-    grid-area: sort;
+
+  select {
+    margin-left: 10px;
+    width: 200px;
+    height: 30px;
+
+    font-size: 16px;
+
+    border-radius: 5px;
+
+    @media (max-width: $screen-s-max) {
+      width: 110px;
+    }
+    @media (max-width: $screen-xs-max) {
+      width: 200px;
+    }
   }
 }

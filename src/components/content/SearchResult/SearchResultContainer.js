@@ -1,14 +1,14 @@
 import React, {useEffect} from "react";
 import {BookItem} from "./bookItem/BookItem";
 import {connect} from "react-redux";
-import s from './Сontent.module.scss'
+import s from './SearchResult.module.scss'
 import {
     getSearchResultThunk,
     setFetching,
     setStartIndex
-} from "../../redux/content-reducer";
+} from "../../../redux/searchResult-reducer";
 
-const Content = (props) => {
+const SeacrhResult = (props) => {
     let value = props.search.value
     let category = props.search.category
     let sortingBy = props.search.sortingBy
@@ -48,12 +48,12 @@ const Content = (props) => {
 
 
     return (
-        <div className={s.content}>
+        <div className={s.searchResult}>
             {props.searchFinished ?
-                <div className={s.content__count}>
+                <div className={s.searchResult__count}>
                     Found {props.totalItems} results
                 </div> : null}
-            <div className={s.content__grid}>
+            <div className={s.searchResult__grid}>
                 {bookItems}
             </div>
         </div>
@@ -63,15 +63,15 @@ const Content = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        items: state.contentPage.items,
-        totalItems: state.contentPage.totalItems,
-        search: state.contentPage.search,
-        startIndex: state.contentPage.startIndex,
-        paginationStep: state.contentPage.paginationStep,
-        fetching: state.contentPage.fetching,
-        preloader: state.contentPage.preloader,
-        stopFetching: state.contentPage.stopFetching,
-        searchFinished: state.contentPage.searchFinished
+        items: state.searchResultPage.items,
+        totalItems: state.searchResultPage.totalItems,
+        search: state.searchResultPage.search,
+        startIndex: state.searchResultPage.startIndex,
+        paginationStep: state.searchResultPage.paginationStep,
+        fetching: state.searchResultPage.fetching,
+        preloader: state.searchResultPage.preloader,
+        stopFetching: state.searchResultPage.stopFetching,
+        searchFinished: state.searchResultPage.searchFinished
     }
 }
 let mapDispatchToProps = {
@@ -80,5 +80,5 @@ let mapDispatchToProps = {
     setFetching
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content)
+export default connect(mapStateToProps, mapDispatchToProps)(SeacrhResult)
 

@@ -6,7 +6,7 @@ import {
     getSearchResultThunk, setFetching, setPreloader,
     setSearchValue,
     setStartIndex
-} from "../../redux/content-reducer";
+} from "../../redux/searchResult-reducer";
 import s from "./Search.module.scss";
 
 
@@ -36,10 +36,10 @@ const Search = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        search: state.contentPage.search,
-        startIndex: state.contentPage.startIndex,
-        paginationStep: state.contentPage.paginationStep,
-        stopFetching: state.contentPage.stopFetching
+        search: state.searchResultPage.search,
+        startIndex: state.searchResultPage.startIndex,
+        paginationStep: state.searchResultPage.paginationStep,
+        stopFetching: state.searchResultPage.stopFetching
     }
 }
 

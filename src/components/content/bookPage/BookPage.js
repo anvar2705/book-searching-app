@@ -3,16 +3,22 @@ import s from './BookPage.module.scss';
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {getBookDataThunk} from "../../redux/bookPage-reducer";
+import {getBookDataThunk} from "../../../redux/bookPage-reducer";
+import noImage from './../../../assets/images/noImage.png'
 
 const BookPage = (props) => {
     let id = props.match.params.id
 
-    let categories = props.volumeInfo.categories.join('/')
-    let title = props.volumeInfo.title
-    let authors = props.volumeInfo.authors.join(', ')
-    let description = props.volumeInfo.description
-    let image = props.volumeInfo.imageLinks.medium
+    let categories = props.volumeInfo.categories ? props.volumeInfo.categories.join('/') : 'no category'
+    let title = props.volumeInfo.title ? props.volumeInfo.title : 'no title'
+    let authors = props.volumeInfo.authors ? props.volumeInfo.authors.join(', ') : 'no authors'
+    let description = props.volumeInfo.description ? props.volumeInfo.description : 'no description'
+    let image
+    if (props.volumeInfo.imageLinks)
+        if (props.volumeInfo.imageLinks.medium)
+            image = props.volumeInfo.imageLinks.medium
+        else image = noImage
+    else image = noImage
 
     useEffect(() => {
         props.getBookDataThunk(id)
@@ -21,20 +27,20 @@ const BookPage = (props) => {
     return (
         <div className={s.bookPage}>
             <div className={s.bookPage__image}>
-                <img src={image ? image : './../../assets/images/no-image.png'} alt="book-image"/>
+                <img src={image} alt="book-image"/>
             </div>
             <div className={s.bookPage__info}>
                 <div className={s.bookPage__categories}>
-                    {categories ? categories : 'no category'}
+                    {categories}
                 </div>
                 <div className={s.bookPage__title}>
-                    {title ? title : 'no title'}
+                    {title}
                 </div>
                 <div className={s.bookPage__authors}>
-                    {authors ? authors : 'no authors'}
+                    {authors}
                 </div>
                 <div className={s.bookPage__description}>
-                    {description ? description : 'no description'}
+                    {description}
                 </div>
             </div>
         </div>

@@ -61,7 +61,7 @@ export const getSearchResultThunk = (search, paginationStep, startIndex, sorting
 
 
 //Reducer
-const contentReducer = (state = initialState, action) => {
+const searchResultReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_SEARCH_VALUE:
             return {
@@ -120,4 +120,4 @@ const contentReducer = (state = initialState, action) => {
     }
 }
 
-export default contentReducer
+export default searchResultReducer

@@ -1,12 +1,12 @@
 import React from 'react'
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
-import contentReducer from './content-reducer'
+import searchResultReducer from './searchResult-reducer'
 import thunkMiddleWare from 'redux-thunk'
 import bookPageReducer from "./bookPage-reducer";
 
 
 let reducers = combineReducers({
-    contentPage: contentReducer,
+    searchResultPage: searchResultReducer,
     bookPage: bookPageReducer
 })
 

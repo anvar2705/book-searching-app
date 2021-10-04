@@ -8,6 +8,8 @@
     --secondary-color-dark: #babdbe;
     --main-color: #10c9c3;
     --main-color-dark: #009793;
+
+
 }
 
 .app {
@@ -21,6 +23,12 @@
         pointer-events: none;
 
         z-index: 10;
+    }
+
+    &__content {
+
+        box-sizing: border-box;
+        padding: 20px 20px 30px;
     }
 }
 

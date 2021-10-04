@@ -1,16 +1,4 @@
-// === VARIABLES ===
-$screen-xs: 320px;
-$screen-s: 480px;
-$screen-m: 800px;
-$screen-l: 1024px;
-$screen-xl: 1280px;
-$screen-xxl: 1600px;
-
-$screen-xs-max: 479px;
-$screen-s-max: 799px;
-$screen-m-max: 1023px;
-$screen-l-max: 1279px;
-$screen-xl-max: 1599px;
+@import './public/index.scss';
 
 .bookPage {
   display: flex;

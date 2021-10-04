@@ -1,12 +1,12 @@
 import React from "react";
 import s from './App.module.scss'
-import SearchContainer from "./components/search/SearchContainer";
-import Content from "./components/content/СontentContainer";
+import Search from "./components/search/SearchContainer";
 import Preloader from "./components/common/preloader/Preloader";
 import {connect, Provider} from "react-redux";
 import {HashRouter, Route, Switch} from "react-router-dom";
 import store from "./redux/redux-store";
-import BookPage from "./components/bookPage/BookPage";
+import BookPage from "./components/content/bookPage/BookPage";
+import SearchResult from "./components/content/SearchResult/SearchResultContainer";
 
 
 const App = (props) => {
@@ -16,17 +16,16 @@ const App = (props) => {
                 <div className={s.app__preloader}>
                     <Preloader/>
                 </div> : null}
-            <SearchContainer/>
+            <Search/>
             <div className={s.app__content}>
                 <Switch>
                     <Route exact path='/'
-                           render={() => (<Content/>)}
+                           render={() => (<SearchResult/>)}
                     />
                     <Route path='/book:id?'
                            render={() => (<BookPage/>)}
                     />
                 </Switch>
-
             </div>
 
         </div>
@@ -35,7 +34,7 @@ const App = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        preloaderContent: state.contentPage.preloader,
+        preloaderContent: state.searchResultPage.preloader,
         preloaderBookPage: state.bookPage.preloader
     }
 }

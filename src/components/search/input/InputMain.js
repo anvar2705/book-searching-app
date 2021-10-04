@@ -28,26 +28,37 @@ const InputMain = (props) => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} onChange={onInputChange} className={s.form}>
-                <div className={s.form__input}>
-                    <InputCustom {...register('value')}>Search books</InputCustom>
+                <div className={s.form__field}>
+                    <div className={s.form__input}>
+                        <InputCustom {...register('value')}>Search books</InputCustom>
+                    </div>
+                    <div className={s.form__btn}>
+                        <ButtonCustom>search</ButtonCustom>
+                    </div>
                 </div>
-                <div className={s.form__btn}>
-                    <ButtonCustom>search</ButtonCustom>
-
+                <div className={s.form__selects}>
+                    <div className={s.form__selectItem}>
+                        <label htmlFor="category">Categories</label>
+                        <select {...register('category')} defaultValue='all'
+                                id='category'>
+                            <option value="all">all</option>
+                            <option value="art">art</option>
+                            <option value="biography">biography</option>
+                            <option value="computers">computers</option>
+                            <option value="history">history</option>
+                            <option value="medical">medical</option>
+                            <option value="poetry">poetry</option>
+                        </select>
+                    </div>
+                    <div className={s.form__selectItem}>
+                        <label htmlFor="sortingBy">Sorting by</label>
+                        <select {...register('sortingBy')} defaultValue='relevance'
+                                id='sortingBy'>
+                            <option value="relevance">relevance</option>
+                            <option value="newest">newest</option>
+                        </select>
+                    </div>
                 </div>
-                <select {...register('category')} defaultValue='all' className={s.form__category}>
-                    <option value="all">all</option>
-                    <option value="art">art</option>
-                    <option value="biography">biography</option>
-                    <option value="computers">computers</option>
-                    <option value="history">history</option>
-                    <option value="medical">medical</option>
-                    <option value="poetry">poetry</option>
-                </select>
-                <select {...register('sortingBy')} defaultValue='relevance' className={s.form__sorting}>
-                    <option value="relevance">relevance</option>
-                    <option value="newest">newest</option>
-                </select>
             </form>
         </>
     )
