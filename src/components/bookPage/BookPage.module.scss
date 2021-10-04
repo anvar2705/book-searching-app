@@ -1,0 +1,57 @@
+// === VARIABLES ===
+$screen-xs: 320px;
+$screen-s: 480px;
+$screen-m: 800px;
+$screen-l: 1024px;
+$screen-xl: 1280px;
+$screen-xxl: 1600px;
+
+$screen-xs-max: 479px;
+$screen-s-max: 799px;
+$screen-m-max: 1023px;
+$screen-l-max: 1279px;
+$screen-xl-max: 1599px;
+
+.bookPage {
+  display: flex;
+
+
+  @media (max-width: $screen-xs-max) {
+    flex-direction: column;
+  }
+
+  &__image {
+
+    margin-right: 50px;
+    img {
+      width: 400px;
+      @media (max-width: $screen-s-max) {
+        width: 200px;
+      }
+    }
+  }
+  &__info {
+    padding-right: 20px;
+  }
+  &__categories {
+    font-size: 14px;
+    line-height: 1.5em;
+    padding-top: 30px;
+
+    color: #888;
+  }
+  &__title {
+    font-weight: 900;
+    padding-top: 30px;
+
+    font-size: 22px;
+  }
+  &__authors {
+    font-weight: 400;
+    color: #444;
+    padding-top: 20px;
+  }
+  &__description {
+    padding-top: 30px;
+  }
+}

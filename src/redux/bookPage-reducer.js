@@ -9,7 +9,15 @@ const SET_PRELOADER = 'book-searching/bookPage-reducer/SET_PRELOADER'
 //Initial state
 
 let initialState = {
-    bookData: {},
+    bookData: {
+        volumeInfo: {
+            title: '',
+            authors: [],
+            description: '',
+            categories: [],
+            imageLinks: {}
+        }
+    },
     preloader: false
 }
 
