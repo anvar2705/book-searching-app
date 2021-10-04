@@ -1,8 +1,7 @@
 import * as axios from "axios";
 
 const baseURL = 'https://www.googleapis.com/books/v1/volumes'
-const API_KEY = 'AIzaSyCVc_mPrcF2fNFlzHh6Pf_a-z9U21VQBFc'    //AIzaSyD8ikw10csgqmcNAKeOb6RgMiqYATmnrSg
-
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 const instance = axios.create({
     baseURL: baseURL,

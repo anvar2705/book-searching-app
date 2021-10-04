@@ -3,12 +3,14 @@ import {useForm} from "react-hook-form";
 import s from './InputMain.module.scss'
 import {InputCustom} from "../../common/inputCustom/InputCustom";
 import {ButtonCustom} from "../../common/buttonCustom/ButtonCustom";
+import {useHistory} from "react-router-dom";
 
 const InputMain = (props) => {
     let value = props.search.value
     let category = props.search.category
     let sortingBy = props.search.sortingBy
     let paginationStep = props.paginationStep
+    const history = useHistory()
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm()
 
@@ -19,6 +21,8 @@ const InputMain = (props) => {
     const onSubmit = () => {
         if (value) {
             props.clearSearchResult()
+            history.push('/')
+
             props.getSearchResultThunk(value, paginationStep, 0, sortingBy, category)
             props.setStartIndex(paginationStep)
         } else
