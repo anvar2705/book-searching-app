@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/book-searching-app/static/css/main.d9a14bdb.chunk.css",
+    "main.js": "/book-searching-app/static/js/main.a38a03f6.chunk.js",
+    "main.js.map": "/book-searching-app/static/js/main.a38a03f6.chunk.js.map",
+    "runtime-main.js": "/book-searching-app/static/js/runtime-main.355aaf42.js",
+    "runtime-main.js.map": "/book-searching-app/static/js/runtime-main.355aaf42.js.map",
+    "static/js/2.e075bebb.chunk.js": "/book-searching-app/static/js/2.e075bebb.chunk.js",
+    "static/js/2.e075bebb.chunk.js.map": "/book-searching-app/static/js/2.e075bebb.chunk.js.map",
+    "static/js/3.8c252a3e.chunk.js": "/book-searching-app/static/js/3.8c252a3e.chunk.js",
+    "static/js/3.8c252a3e.chunk.js.map": "/book-searching-app/static/js/3.8c252a3e.chunk.js.map",
+    "index.html": "/book-searching-app/index.html",
+    "static/css/main.d9a14bdb.chunk.css.map": "/book-searching-app/static/css/main.d9a14bdb.chunk.css.map",
+    "static/js/2.e075bebb.chunk.js.LICENSE.txt": "/book-searching-app/static/js/2.e075bebb.chunk.js.LICENSE.txt",
+    "static/media/noImage.9f5d0730.png": "/book-searching-app/static/media/noImage.9f5d0730.png",
+    "static/media/preloader.ce3cfbdd.gif": "/book-searching-app/static/media/preloader.ce3cfbdd.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.355aaf42.js",
+    "static/js/2.e075bebb.chunk.js",
+    "static/css/main.d9a14bdb.chunk.css",
+    "static/js/main.a38a03f6.chunk.js"
+  ]
+}
