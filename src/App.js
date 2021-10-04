@@ -10,6 +10,12 @@ import SearchResult from "./components/content/SearchResult/SearchResultContaine
 
 
 const App = (props) => {
+
+    if (props.errorGetBooks)                //вывод ошибок
+        alert(props.errorGetBooks)
+    if (props.errorGetSingleBook)
+        alert(props.errorGetSingleBook)
+
     return (
         <div className={s.app}>
             {(props.preloaderContent || props.preloaderBookPage) ?
@@ -35,7 +41,9 @@ const App = (props) => {
 let mapStateToProps = (state) => {
     return {
         preloaderContent: state.searchResultPage.preloader,
-        preloaderBookPage: state.bookPage.preloader
+        preloaderBookPage: state.bookPage.preloader,
+        errorGetBooks: state.searchResultPage.error,
+        errorGetSingleBook: state.bookPage.error
     }
 }
 const AppContainer = connect(mapStateToProps, null)(App);
