@@ -4,6 +4,19 @@ import {NavLink} from "react-router-dom";
 
 export const BookItem = (props) => {
 
+    let title
+
+    if (props.title.length < 58)
+        title = props.title
+    else
+        title = props.title.slice(0, 58) + '...'
+
+    let authors
+    if (props.authors.length < 80)
+        authors = props.authors
+    else
+        authors = props.authors.slice(0, 80) + '...'
+
     return (
         <>
             <NavLink to={'/book' + props.id} className={s.link}>
@@ -14,10 +27,10 @@ export const BookItem = (props) => {
                                 <img src={props.image}/>
                             </div>
                             <div className={s.bookItem__authors}>
-                                {props.authors}
+                                {authors}
                             </div>
                             <div className={s.bookItem__title}>
-                                {props.title}
+                                {title}
                             </div>
                         </div>
                         <div className={s.bookItem__categories}>
