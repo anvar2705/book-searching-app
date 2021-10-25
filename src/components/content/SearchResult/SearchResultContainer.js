@@ -8,7 +8,9 @@ import {
     setStartIndex
 } from "../../../redux/searchResult-reducer";
 
-const SeacrhResult = (props) => {
+const SeacrhResult = ({search, ...}) => {
+    let {value, category, ...} = search    
+    
     let value = props.search.value
     let category = props.search.category
     let sortingBy = props.search.sortingBy
@@ -16,7 +18,7 @@ const SeacrhResult = (props) => {
 
     let bookItems = props.items.map((item) => (
         <div key={item.etag}>
-            <BookItem image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : null}
+            <BookItem image={item.volumeInfo?.imageLinks?.thumbnail}
                       category={(item.volumeInfo.categories) ? item.volumeInfo.categories[0] : ''}
                       title={item.volumeInfo.title ? item.volumeInfo.title : ''}
                       authors={item.volumeInfo.authors ? item.volumeInfo.authors.join(', ') : ''}
