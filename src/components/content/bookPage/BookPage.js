@@ -10,13 +10,13 @@ const BookPage = (props) => {
     let id = props.match.params.id
 
     let categories = props.volumeInfo.categories ? props.volumeInfo.categories.join('/') : 'no category'
-    let title = props.volumeInfo.title ? props.volumeInfo.title : 'no title'
+    let title = props.volumeInfo?.title ?? 'no title'
     let authors = props.volumeInfo.authors ? props.volumeInfo.authors.join(', ') : 'no authors'
     let description = props.volumeInfo.description ? props.volumeInfo.description : 'no description'
     let image
     if (props.volumeInfo.imageLinks)
         if (props.volumeInfo.imageLinks.medium)
-            image = props.volumeInfo.imageLinks.medium
+            image = props.volumeInfo?.imageLinks?.medium
         else image = noImage
     else image = noImage
 
