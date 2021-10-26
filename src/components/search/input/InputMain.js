@@ -1,14 +1,21 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import s from './InputMain.module.scss'
+import { useHistory } from 'react-router-dom'
 import { InputCustom } from '../../common/inputCustom/InputCustom'
 import { ButtonCustom } from '../../common/buttonCustom/ButtonCustom'
-import { useHistory } from 'react-router-dom'
+import {
+    clearSearchResult,
+    getSearchResultThunk,
+    setFetching,
+    setPreloader,
+    setSearchValue,
+    setStartIndex,
+} from '../../../redux/searchResult-reducer'
+import { connect } from 'react-redux'
+import s from './InputMain.module.scss'
 
 const InputMain = (props) => {
-    let value = props.search.value
-    let category = props.search.category
-    let sortingBy = props.search.sortingBy
+    let { value, category, sortingBy } = props.search
     let paginationStep = props.paginationStep
     const history = useHistory()
 
@@ -28,7 +35,15 @@ const InputMain = (props) => {
             props.clearSearchResult()
             history.push('/')
 
-            props.getSearchResultThunk(value, paginationStep, 0, sortingBy, category)
+            let parameters = {
+                value: value,
+                paginationStep: paginationStep,
+                startIndex: 0,
+                sortingBy: sortingBy,
+                category: category,
+            }
+
+            props.getSearchResultThunk(parameters)
             props.setStartIndex(paginationStep)
         } else alert('Please, fill the search field')
     }
@@ -70,4 +85,22 @@ const InputMain = (props) => {
     )
 }
 
-export default InputMain
+let mapStateToProps = (state) => {
+    return {
+        search: state.searchResultPage.search,
+        startIndex: state.searchResultPage.startIndex,
+        paginationStep: state.searchResultPage.paginationStep,
+        stopFetching: state.searchResultPage.stopFetching,
+    }
+}
+
+let mapDispatchToProps = {
+    setSearchValue,
+    getSearchResultThunk,
+    setStartIndex,
+    clearSearchResult,
+    setPreloader,
+    setFetching,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InputMain)

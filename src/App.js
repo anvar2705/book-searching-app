@@ -1,48 +1,10 @@
 import React from 'react'
-import s from './App.module.scss'
-import Search from './components/search/SearchContainer'
-import Preloader from './components/common/preloader/Preloader'
-import { connect, Provider } from 'react-redux'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import store from './redux/redux-store'
-import BookPage from './components/content/bookPage/BookPage'
-import SearchResult from './components/content/SearchResult/SearchResultContainer'
+import { Provider } from 'react-redux'
+import AppContainer from './components/app/AppContainer'
 
-const App = (props) => {
-    if (props.errorGetBooks)
-        //вывод ошибок
-        alert(props.errorGetBooks)
-    if (props.errorGetSingleBook) alert(props.errorGetSingleBook)
-
-    return (
-        <div className={s.app}>
-            {props.preloaderContent || props.preloaderBookPage ? (
-                <div className={s.app__preloader}>
-                    <Preloader />
-                </div>
-            ) : null}
-            <Search />
-            <div className={s.app__content}>
-                <Switch>
-                    <Route exact path="/" render={() => <SearchResult />} />
-                    <Route path="/book:id?" render={() => <BookPage />} />
-                </Switch>
-            </div>
-        </div>
-    )
-}
-
-let mapStateToProps = (state) => {
-    return {
-        preloaderContent: state.searchResultPage.preloader,
-        preloaderBookPage: state.bookPage.preloader,
-        errorGetBooks: state.searchResultPage.error,
-        errorGetSingleBook: state.bookPage.error,
-    }
-}
-const AppContainer = connect(mapStateToProps, null)(App)
-
-const AppMain = () => {
+const App = () => {
     return (
         <HashRouter>
             <Provider store={store}>
@@ -52,4 +14,4 @@ const AppMain = () => {
     )
 }
 
-export default AppMain
+export default App

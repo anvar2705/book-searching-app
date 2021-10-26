@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import s from './BookPage.module.scss'
-import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 import { getBookDataThunk } from '../../../redux/bookPage-reducer'
 import noImage from './../../../assets/images/noImage.png'
+import s from './BookPage.module.scss'
 
 const BookPage = (props) => {
     let id = props.match.params.id

@@ -1,6 +1,6 @@
 import React from 'react'
-import s from './BookItem.module.scss'
 import { NavLink } from 'react-router-dom'
+import s from './BookItem.module.scss'
 
 export const BookItem = (props) => {
     let title

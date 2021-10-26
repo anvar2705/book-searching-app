@@ -6,7 +6,6 @@ const SET_PRELOADER = 'book-searching/bookPage-reducer/SET_PRELOADER'
 const SET_ERROR = 'book-searching/bookPage-reducer/SET_ERROR'
 
 //Initial state
-
 let initialState = {
     bookData: {
         volumeInfo: {

@@ -9,14 +9,14 @@ const instance = axios.create({
 })
 
 export const searchAPI = {
-    getBooks(value, paginationStep, startIndex, sortingBy, category) {
-        if (category === 'all')
+    getBooks(p) {
+        if (p.category === 'all')
             return instance.get(
-                `?q=${value}&key=${API_KEY}&maxResults=${paginationStep}&startIndex=${startIndex}&orderBy=${sortingBy}`
+                `?q=${p.value}&key=${API_KEY}&maxResults=${p.paginationStep}&startIndex=${p.startIndex}&orderBy=${p.sortingBy}`
             )
         else
             return instance.get(
-                `?q=${value}+subject:${category}&key=${API_KEY}&maxResults=${paginationStep}&startIndex=${startIndex}&orderBy=${sortingBy}`
+                `?q=${p.value}+subject:${p.category}&key=${API_KEY}&maxResults=${p.paginationStep}&startIndex=${p.startIndex}&orderBy=${p.sortingBy}`
             )
     },
     getSingleBook(id) {

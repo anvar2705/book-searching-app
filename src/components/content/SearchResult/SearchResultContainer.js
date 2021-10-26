@@ -1,22 +1,20 @@
 import React, { useEffect } from 'react'
-import { BookItem } from './bookItem/BookItem'
 import { connect } from 'react-redux'
-import s from './SearchResult.module.scss'
+import { BookItem } from './bookItem/BookItem'
 import {
     getSearchResultThunk,
     setFetching,
     setStartIndex,
 } from '../../../redux/searchResult-reducer'
+import s from './SearchResult.module.scss'
 
 const SeacrhResult = (props) => {
-    let value = props.search.value
-    let category = props.search.category
-    let sortingBy = props.search.sortingBy
+    let { value, category, sortingBy } = props.search
 
     let bookItems = props.items.map((item) => (
         <div key={item.etag}>
             <BookItem
-                image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : null}
+                image={item.volumeInfo?.imageLinks?.thumbnail}
                 category={item.volumeInfo.categories ? item.volumeInfo.categories[0] : ''}
                 title={item.volumeInfo.title ? item.volumeInfo.title : ''}
                 authors={item.volumeInfo.authors ? item.volumeInfo.authors.join(', ') : ''}
@@ -41,13 +39,15 @@ const SeacrhResult = (props) => {
 
     useEffect(() => {
         if (props.fetching && !props.stopFetching) {
-            props.getSearchResultThunk(
-                value,
-                props.paginationStep,
-                props.startIndex,
-                sortingBy,
-                category
-            )
+            let parameters = {
+                value: value,
+                category: category,
+                sortingBy: sortingBy,
+                paginationStep: props.paginationStep,
+                startIndex: props.startIndex,
+            }
+
+            props.getSearchResultThunk(parameters)
             props.setStartIndex(props.startIndex + props.paginationStep)
         }
     }, [props.fetching])
