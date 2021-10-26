@@ -1,74 +1,75 @@
 @import './public/index.scss';
 
 .form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 600px;
-  @media (max-width: $screen-s-max) {
-    width: 400px;
-  }
-  @media (max-width: $screen-xs-max) {
-    width: 300px;
-  }
-
-  &__field {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    height: 40px;
-    width: 100%;
-
-    padding-bottom: 10px;
-  }
-
-  &__input {
-    width: 72%;
-    padding-right: 1%;
-  }
-  &__btn {
-    width: 27%;
-  }
-
-  &__selects {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    font-size: 16px;
-
-    @media (max-width: $screen-xs-max) {
-      flex-direction: column;
-    }
-  }
-  &__selectItem {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
 
-    padding-bottom: 10px;
-
-    @media (max-width: $screen-xs-max) {
-      width: 100%;
-    }
-  }
-
-  select {
-    margin-left: 10px;
-    width: 200px;
-    height: 30px;
-
-    font-size: 16px;
-
-    border-radius: 5px;
+    width: 600px;
 
     @media (max-width: $screen-s-max) {
-      width: 110px;
+        width: 400px;
     }
     @media (max-width: $screen-xs-max) {
-      width: 200px;
+        width: 300px;
     }
-  }
+
+    &__field {
+        display: flex;
+        justify-content: center;
+        height: 40px;
+        width: 100%;
+
+        padding-bottom: 10px;
+    }
+
+    &__input {
+        width: 72%;
+        padding-right: 1%;
+    }
+    &__btn {
+        width: 27%;
+    }
+
+    &__selects {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        font-size: 16px;
+
+        @media (max-width: $screen-xs-max) {
+            flex-direction: column;
+        }
+    }
+    &__selectItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding-bottom: 10px;
+
+        @media (max-width: $screen-xs-max) {
+            width: 100%;
+        }
+    }
+
+    select {
+        margin-left: 10px;
+        width: 200px;
+        height: 30px;
+
+        font-size: 16px;
+
+        border-radius: 5px;
+
+        @media (max-width: $screen-s-max) {
+            width: 110px;
+        }
+        @media (max-width: $screen-xs-max) {
+            width: 200px;
+        }
+    }
 }

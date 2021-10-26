@@ -12,17 +12,16 @@
     height: 100%;
     width: 100%;
 
-    transition-duration: .4s;
+    transition-duration: 0.4s;
 
     cursor: pointer;
 
     text-transform: uppercase;
+
+    &:hover {
+        background-color: var(--main-color-dark);
+        border: 1px solid var(--main-color-dark);
+
+        transition-duration: 0.4s;
+    }
 }
-
-.buttonCustom:hover {
-    background-color: var(--main-color-dark);
-    border: 1px solid var(--main-color-dark);
-
-    transition-duration: .4s;
-}
-

@@ -1,15 +1,11 @@
-@import "assets/fonts/fonts";
-
+@import 'assets/fonts/fonts';
 
 :root {
-
     // === VARIABLES ===
     --secondary-color: #eceff1;
     --secondary-color-dark: #babdbe;
     --main-color: #10c9c3;
     --main-color-dark: #009793;
-
-
 }
 
 .app {
@@ -26,9 +22,7 @@
     }
 
     &__content {
-
         box-sizing: border-box;
         padding: 20px 20px 30px;
     }
 }
-

@@ -1,45 +1,49 @@
 @import './public/index.scss';
 
 .bookPage {
-  display: flex;
+    display: flex;
 
-
-  @media (max-width: $screen-xs-max) {
-    flex-direction: column;
-  }
-
-  &__image {
-
-    margin-right: 50px;
-    img {
-      width: 400px;
-      @media (max-width: $screen-s-max) {
-        width: 200px;
-      }
+    @media (max-width: $screen-xs-max) {
+        flex-direction: column;
     }
-  }
-  &__info {
-    padding-right: 20px;
-  }
-  &__categories {
-    font-size: 14px;
-    line-height: 1.5em;
-    padding-top: 30px;
 
-    color: #888;
-  }
-  &__title {
-    font-weight: 900;
-    padding-top: 30px;
+    &__image {
+        margin-right: 50px;
 
-    font-size: 22px;
-  }
-  &__authors {
-    font-weight: 400;
-    color: #444;
-    padding-top: 20px;
-  }
-  &__description {
-    padding-top: 30px;
-  }
+        img {
+            width: 400px;
+            @media (max-width: $screen-s-max) {
+                width: 200px;
+            }
+        }
+    }
+
+    &__info {
+        padding-right: 20px;
+    }
+
+    &__categories {
+        font-size: 14px;
+        line-height: 1.5em;
+        padding-top: 30px;
+
+        color: #888;
+    }
+
+    &__title {
+        font-weight: 900;
+        padding-top: 30px;
+
+        font-size: 22px;
+    }
+
+    &__authors {
+        font-weight: 400;
+        color: #444;
+        padding-top: 20px;
+    }
+
+    &__description {
+        padding-top: 30px;
+    }
 }

@@ -1,39 +1,33 @@
-import React from "react";
+import React from 'react'
 import s from './App.module.scss'
-import Search from "./components/search/SearchContainer";
-import Preloader from "./components/common/preloader/Preloader";
-import {connect, Provider} from "react-redux";
-import {HashRouter, Route, Switch} from "react-router-dom";
-import store from "./redux/redux-store";
-import BookPage from "./components/content/bookPage/BookPage";
-import SearchResult from "./components/content/SearchResult/SearchResultContainer";
-
+import Search from './components/search/SearchContainer'
+import Preloader from './components/common/preloader/Preloader'
+import { connect, Provider } from 'react-redux'
+import { HashRouter, Route, Switch } from 'react-router-dom'
+import store from './redux/redux-store'
+import BookPage from './components/content/bookPage/BookPage'
+import SearchResult from './components/content/SearchResult/SearchResultContainer'
 
 const App = (props) => {
-
-    if (props.errorGetBooks)                //вывод ошибок
+    if (props.errorGetBooks)
+        //вывод ошибок
         alert(props.errorGetBooks)
-    if (props.errorGetSingleBook)
-        alert(props.errorGetSingleBook)
+    if (props.errorGetSingleBook) alert(props.errorGetSingleBook)
 
     return (
         <div className={s.app}>
-            {(props.preloaderContent || props.preloaderBookPage) ?
+            {props.preloaderContent || props.preloaderBookPage ? (
                 <div className={s.app__preloader}>
-                    <Preloader/>
-                </div> : null}
-            <Search/>
+                    <Preloader />
+                </div>
+            ) : null}
+            <Search />
             <div className={s.app__content}>
                 <Switch>
-                    <Route exact path='/'
-                           render={() => (<SearchResult/>)}
-                    />
-                    <Route path='/book:id?'
-                           render={() => (<BookPage/>)}
-                    />
+                    <Route exact path="/" render={() => <SearchResult />} />
+                    <Route path="/book:id?" render={() => <BookPage />} />
                 </Switch>
             </div>
-
         </div>
     )
 }
@@ -43,16 +37,16 @@ let mapStateToProps = (state) => {
         preloaderContent: state.searchResultPage.preloader,
         preloaderBookPage: state.bookPage.preloader,
         errorGetBooks: state.searchResultPage.error,
-        errorGetSingleBook: state.bookPage.error
+        errorGetSingleBook: state.bookPage.error,
     }
 }
-const AppContainer = connect(mapStateToProps, null)(App);
+const AppContainer = connect(mapStateToProps, null)(App)
 
 const AppMain = () => {
     return (
         <HashRouter>
             <Provider store={store}>
-                <AppContainer/>
+                <AppContainer />
             </Provider>
         </HashRouter>
     )

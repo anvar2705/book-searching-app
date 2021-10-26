@@ -1,9 +1,9 @@
-import React from "react";
-import {useForm} from "react-hook-form";
+import React from 'react'
+import { useForm } from 'react-hook-form'
 import s from './InputMain.module.scss'
-import {InputCustom} from "../../common/inputCustom/InputCustom";
-import {ButtonCustom} from "../../common/buttonCustom/ButtonCustom";
-import {useHistory} from "react-router-dom";
+import { InputCustom } from '../../common/inputCustom/InputCustom'
+import { ButtonCustom } from '../../common/buttonCustom/ButtonCustom'
+import { useHistory } from 'react-router-dom'
 
 const InputMain = (props) => {
     let value = props.search.value
@@ -12,7 +12,12 @@ const InputMain = (props) => {
     let paginationStep = props.paginationStep
     const history = useHistory()
 
-    const {register, handleSubmit, watch, formState: {errors}} = useForm()
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm()
 
     const onInputChange = () => {
         props.setSearchValue(watch('value'), watch('category'), watch('sortingBy'))
@@ -25,8 +30,7 @@ const InputMain = (props) => {
 
             props.getSearchResultThunk(value, paginationStep, 0, sortingBy, category)
             props.setStartIndex(paginationStep)
-        } else
-            alert('Please, fill the search field')
+        } else alert('Please, fill the search field')
     }
 
     return (
@@ -43,8 +47,7 @@ const InputMain = (props) => {
                 <div className={s.form__selects}>
                     <div className={s.form__selectItem}>
                         <label htmlFor="category">Categories</label>
-                        <select {...register('category')} defaultValue='all'
-                                id='category'>
+                        <select {...register('category')} defaultValue="all" id="category">
                             <option value="all">all</option>
                             <option value="art">art</option>
                             <option value="biography">biography</option>
@@ -56,8 +59,7 @@ const InputMain = (props) => {
                     </div>
                     <div className={s.form__selectItem}>
                         <label htmlFor="sortingBy">Sorting by</label>
-                        <select {...register('sortingBy')} defaultValue='relevance'
-                                id='sortingBy'>
+                        <select {...register('sortingBy')} defaultValue="relevance" id="sortingBy">
                             <option value="relevance">relevance</option>
                             <option value="newest">newest</option>
                         </select>

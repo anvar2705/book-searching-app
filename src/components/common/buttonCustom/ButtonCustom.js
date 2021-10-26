@@ -1,7 +1,7 @@
-import React from "react";
-import s from './ButtonCustom.module.css'
+import React from 'react'
+import s from './ButtonCustom.module.scss'
 
-export const ButtonCustom = ({children, ...props}) => {
+export const ButtonCustom = ({ children, ...props }) => {
     return (
         <button className={s.buttonCustom} {...props}>
             {children}

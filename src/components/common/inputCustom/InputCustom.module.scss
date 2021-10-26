@@ -13,19 +13,20 @@
 
     background-color: transparent;
 
-    transition: .3s;
+    transition: 0.3s;
     padding-left: 8px;
 
     font-family: 'Lato', sans-serif;
     font-size: 18px;
-}
-.input:focus {
-    outline: none;
-    border: 1px solid var(--main-color-dark);
 
-    transition: .3s;
+    &:focus {
+        outline: none;
+        border: 1px solid var(--main-color-dark);
 
-    padding-left: 8px;
+        transition: 0.3s;
+
+        padding-left: 8px;
+    }
 }
 
 .label {
@@ -42,11 +43,10 @@
     font-weight: 300;
     outline: none;
     pointer-events: none;
-    transition-duration: .4s;
+    transition-duration: 0.4s;
 }
-.input:focus ~.label,
-.input:not(:placeholder-shown) ~ .label
-{
+.input:focus ~ .label,
+.input:not(:placeholder-shown) ~ .label {
     top: -22px;
 
     font-size: 14px;
@@ -55,5 +55,3 @@
     z-index: 10;
     background-color: white;
 }
-
-
