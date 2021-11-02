@@ -9,17 +9,17 @@ export enum bookPageActionTypes {
 export type TInitialState = typeof initialState
 export type TBookData = typeof initialState.bookData
 
-interface SetBookData {
+interface ISetBookData {
     type: bookPageActionTypes.SET_BOOK_DATA
     data: TBookData
 }
-interface SetPreloader {
+interface ISetPreloader {
     type: bookPageActionTypes.SET_PRELOADER
     status: boolean
 }
-interface SetErrorBookPage {
+interface ISetErrorBookPage {
     type: bookPageActionTypes.SET_ERROR
     error: string
 }
 
-export type TBookPageAction = SetBookData | SetPreloader | SetErrorBookPage
+export type TBookPageAction = ISetBookData | ISetPreloader | ISetErrorBookPage
