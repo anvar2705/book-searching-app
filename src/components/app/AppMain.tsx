@@ -1,21 +1,26 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { FC } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Search from '../search/SearchContainer'
 import Preloader from '../common/preloader/Preloader'
 import BookPage from '../content/bookPage/BookPage'
 import SearchResult from '../content/SearchResult/SearchResultContainer'
-import s from './AppContainer.module.scss'
+import s from './AppMain.module.scss'
+import { useTypedSelector } from '../../hooks/hooks'
 
-const AppMain = (props) => {
-    if (props.errorGetBooks)
+const AppMain: FC = (props) => {
+    const preloaderContent = useTypedSelector((state) => state.searchResultPage.preloader)
+    const errorGetBooks = useTypedSelector((state) => state.searchResultPage.error)
+    const preloaderBookPage = useTypedSelector((state) => state.bookPage.preloader)
+    const errorGetSingleBook = useTypedSelector((state) => state.bookPage.error)
+
+    if (errorGetBooks)
         //вывод ошибок
-        alert(props.errorGetBooks)
-    if (props.errorGetSingleBook) alert(props.errorGetSingleBook)
+        alert(errorGetBooks)
+    if (errorGetSingleBook) alert(errorGetSingleBook)
 
     return (
         <div className={s.app}>
-            {props.preloaderContent || props.preloaderBookPage ? (
+            {preloaderContent || preloaderBookPage ? (
                 <div className={s.app__preloader}>
                     <Preloader />
                 </div>
@@ -31,14 +36,4 @@ const AppMain = (props) => {
     )
 }
 
-let mapStateToProps = (state) => {
-    return {
-        preloaderContent: state.searchResultPage.preloader,
-        preloaderBookPage: state.bookPage.preloader,
-        errorGetBooks: state.searchResultPage.error,
-        errorGetSingleBook: state.bookPage.error,
-    }
-}
-const AppContainer = connect(mapStateToProps, null)(AppMain)
-
-export default AppContainer
+export default AppMain

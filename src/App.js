@@ -2,7 +2,7 @@ import React from 'react'
 import { HashRouter } from 'react-router-dom'
 import store from './redux/redux-store'
 import { Provider } from 'react-redux'
-import AppContainer from './components/app/AppContainer'
+import AppContainer from './components/app/AppMain'
 
 const App = () => {
     return (

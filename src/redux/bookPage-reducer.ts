@@ -59,7 +59,7 @@ export const getBookDataThunk = (id: any) => async (dispatch: any) => {
 }
 
 // Reducer
-const bookPageReducer = (state = initialState, action: any): InitialStateType => {
+export const bookPageReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case SET_BOOK_DATA:
             return {
@@ -80,5 +80,3 @@ const bookPageReducer = (state = initialState, action: any): InitialStateType =>
             return state
     }
 }
-
-export default bookPageReducer
