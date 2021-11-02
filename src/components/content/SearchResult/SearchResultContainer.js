@@ -5,7 +5,7 @@ import {
     getSearchResultThunk,
     setFetching,
     setStartIndex,
-} from '../../../redux/searchResult-reducer'
+} from '../../../redux/searchResultReducer'
 import s from './SearchResult.module.scss'
 
 const SeacrhResult = (props) => {

@@ -10,7 +10,7 @@ import {
     setPreloader,
     setSearchValue,
     setStartIndex,
-} from '../../../redux/searchResult-reducer'
+} from '../../../redux/searchResultReducer'
 import { connect } from 'react-redux'
 import s from './InputMain.module.scss'
 

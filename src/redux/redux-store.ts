@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 import thunkMiddleWare from 'redux-thunk'
-import { bookPageReducer } from './bookPage-reducer'
-import { searchResultReducer } from './searchResult-reducer'
+import { bookPageReducer } from './bookPageReducer'
+import { searchResultReducer } from './searchResultReducer'
 
 let rootReducer = combineReducers({
     searchResultPage: searchResultReducer,

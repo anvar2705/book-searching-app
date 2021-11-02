@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { getBookDataThunk } from '../../../redux/bookPage-reducer'
+import { getBookDataThunk } from '../../../redux/bookPageReducer'
 import noImage from './../../../assets/images/noImage.png'
 import s from './BookPage.module.scss'
 
