@@ -1,4 +1,6 @@
 import { initialState } from '../redux/bookPageReducer'
+import { ThunkAction } from 'redux-thunk'
+import { RootState } from '../redux/redux-store'
 
 export enum bookPageActionTypes {
     SET_BOOK_DATA = 'book-searching/bookPageReducer/SET_BOOK_DATA',
@@ -23,3 +25,4 @@ interface ISetErrorBookPage {
 }
 
 export type TBookPageAction = ISetBookData | ISetPreloader | ISetErrorBookPage
+export type TBookPageThunk = ThunkAction<void, RootState, unknown, TBookPageAction>

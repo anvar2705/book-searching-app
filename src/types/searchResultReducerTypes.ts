@@ -1,4 +1,6 @@
 import { initialState } from '../redux/searchResultReducer'
+import { ThunkAction } from 'redux-thunk'
+import { RootState } from '../redux/redux-store'
 
 export enum searchResultActionTypes {
     SET_SEARCH_RESULT = 'book-searching/content-reducer/SET_SEARCH_RESULT',
@@ -85,3 +87,5 @@ export type TSearchResultAction =
     | ISetStopFetching
     | ISetSearchFinished
     | ISetErrorSearchPage
+
+export type TSearchResultThunk = ThunkAction<void, RootState, unknown, TSearchResultAction>

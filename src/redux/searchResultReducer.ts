@@ -4,8 +4,8 @@ import {
     IParametersGetSearchResultThunk,
     searchResultActionTypes,
     TSearchResultAction,
+    TSearchResultThunk,
 } from '../types/searchResultReducerTypes'
-import { Dispatch } from 'react'
 
 // Initial state
 export const initialState = {
@@ -74,8 +74,8 @@ export const setErrorSearchPage = (error: boolean): TSearchResultAction => ({
 
 // Thunk Creators
 export const getSearchResultThunk =
-    (parameters: IParametersGetSearchResultThunk) =>
-    async (dispatch: Dispatch<TSearchResultAction>) => {
+    (parameters: IParametersGetSearchResultThunk): TSearchResultThunk =>
+    async (dispatch) => {
         dispatch(setPreloader(true))
         try {
             let response = await searchAPI.getBooks(parameters)

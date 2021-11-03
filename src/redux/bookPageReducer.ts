@@ -4,8 +4,8 @@ import {
     bookPageActionTypes,
     TInitialState,
     TBookData,
+    TBookPageThunk,
 } from '../types/bookPageReducerTypes'
-import { Dispatch } from 'react'
 
 // Initial state
 export let initialState = {
@@ -37,18 +37,20 @@ export const setErrorBookPage = (error: string): TBookPageAction => ({
 })
 
 // Thunk Creators
-export const getBookDataThunk = (id: string) => async (dispatch: Dispatch<TBookPageAction>) => {
-    dispatch(setPreloader(true))
-    try {
-        let response = await searchAPI.getSingleBook(id)
-        if (response.data.id) dispatch(setBookData(response.data))
-        else alert(response.error.message)
-        dispatch(setPreloader(false))
-    } catch (error: any) {
-        dispatch(setPreloader(false))
-        dispatch(setErrorBookPage(error.response.data.error.message))
+export const getBookDataThunk =
+    (id: string): TBookPageThunk =>
+    async (dispatch) => {
+        dispatch(setPreloader(true))
+        try {
+            let response = await searchAPI.getSingleBook(id)
+            if (response.data.id) dispatch(setBookData(response.data))
+            else alert(response.error.message)
+            dispatch(setPreloader(false))
+        } catch (error: any) {
+            dispatch(setPreloader(false))
+            dispatch(setErrorBookPage(error.response.data.error.message))
+        }
     }
-}
 
 // Reducer
 export const bookPageReducer = (state = initialState, action: TBookPageAction): TInitialState => {
