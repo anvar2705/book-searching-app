@@ -19,4 +19,4 @@ export default store
 
 // for possibility to watch store content from console
 // @ts-ignore
-// window.store = store
+window.store = store

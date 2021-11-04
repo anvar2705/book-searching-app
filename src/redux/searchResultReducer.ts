@@ -93,6 +93,7 @@ export const getSearchResultThunk =
             }
         } catch (error: any) {
             dispatch(setPreloader(false))
+            debugger
             let errorGetBooks = error.response.data.error.message
             dispatch(setErrorSearchPage(errorGetBooks))
         }

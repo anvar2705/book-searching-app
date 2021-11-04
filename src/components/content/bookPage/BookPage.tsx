@@ -1,28 +1,32 @@
-import React, { useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { compose } from 'redux'
 import { getBookDataThunk } from '../../../redux/bookPageReducer'
 import noImage from './../../../assets/images/noImage.png'
 import s from './BookPage.module.scss'
+import { TBookPageProps } from '../../../types/bookPageTypes'
+import { useTypedSelector } from '../../../hooks/hooks'
 
-const BookPage = (props) => {
+const BookPage: FC<TBookPageProps> = (props) => {
     let id = props.match.params.id
 
-    let categories = props.volumeInfo.categories
-        ? props.volumeInfo.categories.join('/')
-        : 'no category'
-    let title = props.volumeInfo.title ? props.volumeInfo.title : 'no title'
-    let authors = props.volumeInfo.authors ? props.volumeInfo.authors.join(', ') : 'no authors'
-    let description = props.volumeInfo.description ? props.volumeInfo.description : 'no description'
+    const volumeInfo = useTypedSelector((state) => state.bookPage.bookData.volumeInfo)
+
+    const dispatch = useDispatch()
+
+    let categories = volumeInfo.categories ? volumeInfo.categories.join('/') : 'no category'
+    let title = volumeInfo.title ? volumeInfo.title : 'no title'
+    let authors = volumeInfo.authors ? volumeInfo.authors.join(', ') : 'no authors'
+    let description = volumeInfo.description ? volumeInfo.description : 'no description'
     let image
-    if (props.volumeInfo.imageLinks)
-        if (props.volumeInfo.imageLinks.medium) image = props.volumeInfo.imageLinks.medium
+    if (volumeInfo.imageLinks)
+        if (volumeInfo.imageLinks.medium) image = volumeInfo.imageLinks.medium
         else image = noImage
     else image = noImage
 
     useEffect(() => {
-        props.getBookDataThunk(id)
+        dispatch(getBookDataThunk(id))
     }, [])
 
     return (
@@ -40,13 +44,4 @@ const BookPage = (props) => {
     )
 }
 
-let mapStateToProps = (state) => {
-    return {
-        volumeInfo: state.bookPage.bookData.volumeInfo,
-    }
-}
-let mapDispatchToProps = {
-    getBookDataThunk,
-}
-
-export default compose(connect(mapStateToProps, mapDispatchToProps), withRouter)(BookPage)
+export default compose(withRouter)(BookPage)

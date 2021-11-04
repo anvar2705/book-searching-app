@@ -15,7 +15,9 @@ export let initialState = {
             authors: [] as Array<string>,
             description: '',
             categories: [] as Array<string>,
-            imageLinks: {},
+            imageLinks: {
+                medium: '',
+            },
         },
     },
     preloader: false,
