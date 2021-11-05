@@ -46,7 +46,7 @@ export const getBookDataThunk =
         try {
             let response = await searchAPI.getSingleBook(id)
             if (response.data.id) dispatch(setBookData(response.data))
-            else alert(response.error.message)
+            else alert(response.data.error.message)
             dispatch(setPreloader(false))
         } catch (error: any) {
             dispatch(setPreloader(false))
