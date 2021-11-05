@@ -6,6 +6,7 @@ import {
     TSearchResultAction,
     TSearchResultThunk,
 } from '../types/searchResultReducerTypes'
+import { TItems } from '../types/searchResultTypes'
 
 // Initial state
 export const initialState = {
@@ -20,7 +21,7 @@ export const initialState = {
     stopFetching: false,
     startIndex: 0,
     paginationStep: 30,
-    items: [],
+    items: [] as TItems,
     searchFinished: false,
     error: '',
 }

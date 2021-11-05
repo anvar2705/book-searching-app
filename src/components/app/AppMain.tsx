@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import Search from '../search/SearchContainer'
 import Preloader from '../common/preloader/Preloader'
 import BookPage from '../content/bookPage/BookPage'
-import SearchResult from '../content/SearchResult/SearchResultContainer'
+import SearchResult from '../content/SearchResult/SearchResult'
 import s from './AppMain.module.scss'
 import { useTypedSelector } from '../../hooks/hooks'
 

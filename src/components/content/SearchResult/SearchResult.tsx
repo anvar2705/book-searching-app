@@ -1,17 +1,31 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import React, { FC, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { BookItem } from './bookItem/BookItem'
 import {
     getSearchResultThunk,
     setFetching,
     setStartIndex,
 } from '../../../redux/searchResultReducer'
+import { useTypedSelector } from '../../../hooks/hooks'
 import s from './SearchResult.module.scss'
 
-const SeacrhResult = (props) => {
-    let { value, category, sortingBy } = props.search
+const SeacrhResult: FC = () => {
+    const searchResultPage = useTypedSelector((state) => state.searchResultPage)
+    const {
+        items,
+        totalItems,
+        search,
+        startIndex,
+        paginationStep,
+        fetching,
+        stopFetching,
+        searchFinished,
+    } = searchResultPage
+    const { value, category, sortingBy } = search
 
-    let bookItems = props.items.map((item) => (
+    const dispatch = useDispatch()
+
+    let bookItems = items.map((item) => (
         <div key={item.etag}>
             <BookItem
                 image={item.volumeInfo?.imageLinks?.thumbnail}
@@ -33,52 +47,33 @@ const SeacrhResult = (props) => {
         let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom
 
         if (windowRelativeBottom < document.documentElement.clientHeight + 100) {
-            props.setFetching(true)
+            dispatch(setFetching(true))
         }
     }
 
     useEffect(() => {
-        if (props.fetching && !props.stopFetching) {
+        if (fetching && !stopFetching) {
             let parameters = {
                 value: value,
                 category: category,
                 sortingBy: sortingBy,
-                paginationStep: props.paginationStep,
-                startIndex: props.startIndex,
+                paginationStep: paginationStep,
+                startIndex: startIndex,
             }
 
-            props.getSearchResultThunk(parameters)
-            props.setStartIndex(props.startIndex + props.paginationStep)
+            dispatch(getSearchResultThunk(parameters))
+            dispatch(setStartIndex(startIndex + paginationStep))
         }
-    }, [props.fetching])
+    }, [fetching])
 
     return (
         <div className={s.searchResult}>
-            {props.searchFinished ? (
-                <div className={s.searchResult__count}>Found {props.totalItems} results</div>
+            {searchFinished ? (
+                <div className={s.searchResult__count}>Found {totalItems} results</div>
             ) : null}
             <div className={s.searchResult__grid}>{bookItems}</div>
         </div>
     )
 }
 
-let mapStateToProps = (state) => {
-    return {
-        items: state.searchResultPage.items,
-        totalItems: state.searchResultPage.totalItems,
-        search: state.searchResultPage.search,
-        startIndex: state.searchResultPage.startIndex,
-        paginationStep: state.searchResultPage.paginationStep,
-        fetching: state.searchResultPage.fetching,
-        preloader: state.searchResultPage.preloader,
-        stopFetching: state.searchResultPage.stopFetching,
-        searchFinished: state.searchResultPage.searchFinished,
-    }
-}
-let mapDispatchToProps = {
-    getSearchResultThunk,
-    setStartIndex,
-    setFetching,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SeacrhResult)
+export default SeacrhResult
